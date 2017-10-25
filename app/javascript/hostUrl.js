@@ -4,7 +4,7 @@ switch (process.env.NODE_ENV) {
     hostUrl = 'http://localhost:3000'
     break;
   default:
-    hostUrl = 'https://spookoween2017.herokuapp.com/'
+    hostUrl = 'https://spookoween2017.herokuapp.com'
 }
 
 export default hostUrl;
