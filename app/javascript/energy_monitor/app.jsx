@@ -2,8 +2,9 @@
 // like app/views/layouts/application.html.erb. All it does is render <div>Hello React</div> at the bottom
 // of the page.
 import React from 'react'
+import hostUrl from '../hostUrl'
 
-class App extends React.Component {
+class EnergyMonitorApp extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -15,14 +16,24 @@ class App extends React.Component {
     setInterval(this.updateEnergy, 1000)
   }
   updateEnergy(){
-    let energy = this.state.energy + 1
-    this.setState({
-      energy: energy
+    let energy = this.state.energy
+    fetch(`${hostUrl}/api/energy_sources`)
+    .then(response => {
+      return response.text();
     })
+    .then(text => {
+      return JSON.parse(text);
+    })
+    .then(parsed => {
+      this.setState({
+        energy: parsed.energy_total
+      })
+    })
+
   }
   render() {
     return <h1>ENERGY POWER: {this.state.energy}</h1>
   }
 }
 
-export default App;
+export default EnergyMonitorApp;

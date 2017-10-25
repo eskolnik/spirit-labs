@@ -5,3 +5,29 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+EnergySource.destroy_all
+RitualCode.destroy_all
+
+small_rituals = ["Trick or Treat", "Spider Dance"]
+
+
+small_rituals.each_with_index do |name, n|
+  ritual = EnergySource.create({ name: name})
+  RitualCode.create(energy_source: ritual, token: "abc#{n+1}", uses_remaining: 999)
+end
+
+lantern = EnergySource.create(
+  name: "Jack o' Lanterns",
+  energy_value: 10
+)
+
+RitualCode.create(energy_source: lantern, token: "jack1", uses_remaining: 1)
+RitualCode.create(energy_source: lantern, token: "jack2", uses_remaining: 2)
+RitualCode.create(energy_source: lantern, token: "jack3", uses_remaining: 3)
+
+seance = EnergySource.create(
+  name: "Seance",
+  energy_value: 6
+)
+
+RitualCode.create(energy_source: seance, token: "seance1", uses_remaining: 2)

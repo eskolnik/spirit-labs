@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20171025053253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "energy_sources", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.integer "energy_value", default: 1
+    t.integer "energy_produced", default: 0
+    t.integer "exhausted"
+  end
+
+  create_table "ritual_codes", force: :cascade do |t|
+    t.bigint "energy_source_id"
+    t.string "token"
+    t.integer "uses_remaining", default: 1
+    t.index ["energy_source_id"], name: "index_ritual_codes_on_energy_source_id"
+  end
 
 end
