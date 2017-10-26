@@ -1,5 +1,5 @@
-import jsHue from 'jsHue'
-let hueJS = jsHue();
+import jshue from 'jshue'
+let hueJS = jshue();
 
 let bridge = hueJS.bridge('192.168.1.61')
 let user = bridge.user("tpAQsSSOkxg6eBITvsf1Wzv52-d5gqDLd4By0c6g")
