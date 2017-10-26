@@ -1,7 +1,11 @@
-<h1>SUBMIT ENCODED RESEARCH</h1>
+<h1>ENTER RITUAL CODE</h1>
 
 <%= form_tag("/api/ritual_codes", method: "post") do %>
   <%= label_tag(:token, "Token:") %>
   <%= text_field_tag(:token) %>
   <%= submit_tag("Submit") %>
+<% end %>
+
+<% if flash[:notice] %>
+<div class="notice"><%= flash[:notice] %></div>
 <% end %>
