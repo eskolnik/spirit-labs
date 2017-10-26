@@ -43,7 +43,6 @@ GEM
     arel (8.0.0)
     bindex (0.5.0)
     builder (3.2.3)
-    byebug (9.1.0)
     capybara (2.15.4)
       addressable
       mini_mime (>= 0.1.3)
@@ -53,6 +52,8 @@ GEM
       xpath (~> 2.0)
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
+    chronic (0.10.2)
+    coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -60,13 +61,27 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    color (1.8)
     concurrent-ruby (1.0.5)
     crass (1.0.2)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     erubi (1.7.0)
+    eventmachine (1.2.5)
     execjs (2.7.0)
     ffi (1.9.18)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    httparty (0.15.6)
+      multi_xml (>= 0.5.2)
+    huey (2.1.0)
+      chronic (>= 0.9.0)
+      color (>= 1.4.1)
+      eventmachine (>= 1.0.0)
+      httparty (>= 0.9.0)
+      multi_json (~> 1.8)
     i18n (0.9.0)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
@@ -89,10 +104,14 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.10.3)
     multi_json (1.12.2)
+    multi_xml (0.6.0)
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
     pg (0.21.0)
+    pry (0.11.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
     public_suffix (3.0.0)
     puma (3.10.0)
     rack (2.0.3)
@@ -185,12 +204,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  dotenv-rails
+  huey
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.18)
+  pry
   puma (~> 3.7)
   rack-cors
   rails (~> 5.1.4)

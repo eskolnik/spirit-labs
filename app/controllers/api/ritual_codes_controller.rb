@@ -2,6 +2,10 @@ class Api::RitualCodesController < ApplicationController
   def create
     if ritual_code
       ritual_code.activate
+      Huey::Bulb.find(5).alert!
+      flash[:notice] = "Ritual Complete!"
+    else
+      flash[:notice] = "Nothing happened"
     end
     redirect_to "/"
   end
