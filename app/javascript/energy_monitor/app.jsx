@@ -3,6 +3,7 @@
 // of the page.
 import React from 'react'
 import hostUrl from '../hostUrl'
+import hue from '../hue'
 
 class EnergyMonitorApp extends React.Component {
   constructor(props) {
@@ -16,10 +17,10 @@ class EnergyMonitorApp extends React.Component {
     setInterval(this.updateEnergy, 1000)
   }
 
-  componentDidUpdate(){
-    console.log(`UPDATED ${this.state.energy}`)
+  flashLights() {
+    hue.setGoState({alert: "select"})
   }
-  
+
   updateEnergy(){
     let energy = this.state.energy
     fetch(`${hostUrl}/api/energy_sources`)
@@ -30,9 +31,12 @@ class EnergyMonitorApp extends React.Component {
       return JSON.parse(text);
     })
     .then(parsed => {
-      this.setState({
-        energy: parsed.energy_total
-      })
+      if (parsed.energy_total !== this.state.energy) {
+        this.setState({
+          energy: parsed.energy_total
+        })
+        this.flashLights();
+      }
     })
 
   }
