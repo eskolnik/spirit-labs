@@ -1,8 +1,7 @@
-// Run this example by adding <%= javascript_pack_tag 'hello_react' %> to the head of your layout file,
-// like app/views/layouts/application.html.erb. All it does is render <div>Hello React</div> at the bottom
-// of the page.
+
 import React from 'react'
 import hostUrl from '../hostUrl'
+import EnergyBar from './EnergyBar'
 
 class EnergyMonitorApp extends React.Component {
   constructor(props) {
@@ -32,7 +31,18 @@ class EnergyMonitorApp extends React.Component {
 
   }
   render() {
-    return <h1>ENERGY POWER: {this.state.energy}</h1>
+    let energy = this.state.energy
+    return (
+      <EnergyBar
+        theme={'light'}
+        value={energy}
+        max={100}
+        format={'$'}
+        steps={2}
+        size={'large'}
+        height={450}
+      />
+    )
   }
 }
 

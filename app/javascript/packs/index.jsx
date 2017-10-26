@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import EnergyMonitorApp from '../energy_monitor/app'
+import EnergyMonitorApp from '../energy_monitor/EnergyMonitorApp'
 // import EnergyBanner from 'energyBanner'
 // import EnergyBar from 'energyBar'
 
