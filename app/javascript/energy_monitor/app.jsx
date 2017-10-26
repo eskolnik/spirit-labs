@@ -15,6 +15,11 @@ class EnergyMonitorApp extends React.Component {
   componentDidMount(){
     setInterval(this.updateEnergy, 1000)
   }
+
+  componentDidUpdate(){
+    console.log(`UPDATED ${this.state.energy}`)
+  }
+  
   updateEnergy(){
     let energy = this.state.energy
     fetch(`${hostUrl}/api/energy_sources`)
