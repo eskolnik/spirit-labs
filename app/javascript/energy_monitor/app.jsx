@@ -5,9 +5,10 @@ import React from 'react'
 import hostUrl from '../hostUrl'
 import hue from '../hue'
 
-class EnergyMonitorApp extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
       energy: 0
     }
@@ -18,7 +19,11 @@ class EnergyMonitorApp extends React.Component {
   }
 
   flashLights() {
-    hue.setGoState({alert: "select"})
+    // hue.user.setGroupState(3, {alert: "select"})
+    // hue.setGroupColor('Seance', 'purple')
+    hue.blinkGroup('Seance', 'orange', 'purple')
+    // hue.flicker('Seance', 3)
+    hue.getColor(5)
   }
 
   updateEnergy(){
@@ -45,4 +50,4 @@ class EnergyMonitorApp extends React.Component {
   }
 }
 
-export default EnergyMonitorApp;
+export default App;

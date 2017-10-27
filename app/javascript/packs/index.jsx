@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import EnergyMonitorApp from '../energy_monitor/app'
+import App from '../energy_monitor/app'
 // import EnergyBanner from 'energyBanner'
 // import EnergyBar from 'energyBar'
 
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <EnergyMonitorApp />,
+    <App />,
     document.body.appendChild(document.createElement('div')),
   )
 })
