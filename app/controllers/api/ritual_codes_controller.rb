@@ -1,6 +1,8 @@
 class Api::RitualCodesController < ApplicationController
   def create
-    if ritual_code
+    if params[:token].downcase == "reset"
+      %x( rake db:seed )
+    elsif ritual_code
       ritual_code.activate
       flash[:notice] = "Ritual Complete!"
     else
