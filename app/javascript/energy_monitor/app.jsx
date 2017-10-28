@@ -3,27 +3,49 @@
 // of the page.
 import React from 'react'
 import hostUrl from '../hostUrl'
-import hue from '../hue'
+import ritualHelper from '../ritualHelper'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      energy: 0
+      energy: 0,
+      ritualsCompleted: [],
+      seanceInProgress: false
     }
     this.updateEnergy = this.updateEnergy.bind(this)
+    this.updateLights = this.updateLights.bind(this)
   }
   componentDidMount(){
     setInterval(this.updateEnergy, 1000)
+    setInterval(this.updateLights, 1000)
   }
 
-  flashLights() {
-    // hue.user.setGroupState(3, {alert: "select"})
-    // hue.setGroupColor('Seance', 'purple')
-    hue.blinkGroup('Seance', 'orange', 'purple')
-    // hue.flicker('Seance', 3)
-    hue.getColor(5)
+  updateLights() {
+    let ritualsCompleted = this.state.ritualsCompleted
+    fetch(`${hostUrl}/api/ritual_completions`).then(response => {
+      return response.text()
+    })
+    .then(text => {
+      return JSON.parse(text)
+    })
+    .then(data => {
+      if (data.length > ritualsCompleted.length) {
+        let ritual = data[0]
+        if (ritual.source == 'Seance' && !this.state.seanceInProgress) {
+          function endSeance() {this.setState({seanceInProgress: false})}
+          endSeance = endSeance.bind(this)
+
+          ritualHelper(ritual, endSeance)
+          this.setState({seanceInProgress: true})
+
+        } else {
+          ritualHelper(ritual, ()=>{})
+        }
+        this.setState({ritualsCompleted: data})
+      }
+    })
   }
 
   updateEnergy(){
@@ -40,11 +62,10 @@ class App extends React.Component {
         this.setState({
           energy: parsed.energy_total
         })
-        this.flashLights();
       }
     })
-
   }
+
   render() {
     return <h1>ENERGY POWER: {this.state.energy}</h1>
   }

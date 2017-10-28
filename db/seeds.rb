@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 EnergySource.destroy_all
 RitualCode.destroy_all
+RitualCompletion.destroy_all
 
 small_rituals = ["Trick or Treat", "Spider Dance"]
 
