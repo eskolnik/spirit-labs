@@ -20,13 +20,13 @@ ActiveRecord::Schema.define(version: 20171027231805) do
     t.text "description"
     t.integer "energy_value", default: 1
     t.integer "energy_produced", default: 0
-    t.integer "exhausted"
+    t.boolean "exhausted", default: false
   end
 
   create_table "ritual_codes", force: :cascade do |t|
     t.bigint "energy_source_id"
     t.string "token"
-    t.integer "uses_remaining", default: 1
+    t.integer "uses_remaining", default: 9999
     t.index ["energy_source_id"], name: "index_ritual_codes_on_energy_source_id"
   end
 

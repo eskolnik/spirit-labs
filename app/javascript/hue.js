@@ -20,7 +20,6 @@ let colors = {
   pink: {color: 57849},
   teal: {color: 38318},
   purple: {color: 49442},
-  light_orange: {color: 5079},
   neutralWhite: {color: 9159, saturate: 63}
 }
 
@@ -78,7 +77,7 @@ let getGroupState = (group) => {
 //trigger hardcoded seance sequence
 let seance = (callback) => {
   let colorFlag = true
-  let colorSequence = ['red', 'blue', 'green', 'orange', 'purple', 'neutralWhite']
+  let colorSequence = ["pink", "yellow", "green", "red", "yellow", "teal", "orange", "red", "blue", "blue", "purple", 'neutralWhite']
   let index = 0;
   let seanceInterval = setInterval(() => {
     setGroupColor('Seance', colors[colorSequence[index]])
@@ -88,6 +87,18 @@ let seance = (callback) => {
       clearInterval(seanceInterval)
     }
   }, 3000)
+}
+
+let finalRitual = (group) => {
+  [1,2,3,4,6,7,8,9].forEach ((light, n) => {
+    setTimeout(()=> {
+      user.setLightState(light, {effect: "colorloop", sat: 254})
+    }, n * 1000)
+  })
+  setTimeout(()=>{
+    user.setGroupState(groups['down'], { effect: "none"})
+    setGroupColor(groups['down'], hue.colors.neutralWhite)
+  }, 6000)
 }
 //Fade to a new color for the specified time, then face back to the original color
 let fadeGroup = (group, color, timeout=5) => {
@@ -114,7 +125,8 @@ let hue = {
   getState,
   getGroupState,
   fadeGroup,
-  seance
+  seance,
+  finalRitual
  }
 
 export default hue;

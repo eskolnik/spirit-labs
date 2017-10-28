@@ -1,6 +1,6 @@
 class Api::RitualCodesController < ApplicationController
   def create
-    if params[:token].downcase == "reset"
+    if params[:token] == "RESET AUTH: HAGFISH"
       %x( rake db:seed )
     elsif ritual_code
       ritual_code.activate
