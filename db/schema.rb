@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025053253) do
+ActiveRecord::Schema.define(version: 20171027231805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20171025053253) do
     t.string "token"
     t.integer "uses_remaining", default: 1
     t.index ["energy_source_id"], name: "index_ritual_codes_on_energy_source_id"
+  end
+
+  create_table "ritual_completions", force: :cascade do |t|
+    t.bigint "energy_source_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["energy_source_id"], name: "index_ritual_completions_on_energy_source_id"
   end
 
 end

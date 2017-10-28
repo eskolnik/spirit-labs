@@ -1,5 +1,6 @@
 class EnergySource < ApplicationRecord
   has_many :ritual_codes
+  has_many :ritual_completions
 
   def increment
     if !self.exhausted

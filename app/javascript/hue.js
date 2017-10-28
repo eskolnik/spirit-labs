@@ -1,8 +1,8 @@
 import jsHue from 'jshue'
+import hueConfig from './hueConfig'
 let hueJS = jsHue();
-
-let bridge = hueJS.bridge('192.168.1.61')
-let user = bridge.user("tpAQsSSOkxg6eBITvsf1Wzv52-d5gqDLd4By0c6g")
+let bridge = hueJS.bridge(hueConfig.bridgeip)
+let user = bridge.user(hueConfig.username)
 let groups = {};
 
 user.getGroups().then(data => {
@@ -12,16 +12,23 @@ user.getGroups().then(data => {
 })
 
 let colors = {
-  red: 0,
-  green: 25500,
-  blue: 46920,
-  orange: 2868,
-  light_orange: 5079,
-  purple: 49442
+  red: {color: 0},
+  green: {color: 25500},
+  blue: {color: 46920},
+  orange: {color: 2868},
+  yellow: {color: 9225},
+  pink: {color: 57849},
+  teal: {color: 38318},
+  purple: {color: 49442},
+  light_orange: {color: 5079},
+  neutralWhite: {color: 9159, saturate: 63}
 }
 
-let colorState = (color, transition=4, bright=236, saturate=254) => {
-  let s = {
+let colorState = (args, transition=4) => {
+  let color = args.color || 0
+  let bright = args.bright || 236
+  let saturate = args.saturate || 254
+  return {
     bri: bright,
     colormode: "xy",
     effect: "none",
@@ -30,7 +37,6 @@ let colorState = (color, transition=4, bright=236, saturate=254) => {
     sat: saturate,
     transitiontime: transition
   }
-  return s
 }
 
 let setGroupState = (group, state) => {
@@ -44,27 +50,54 @@ let flickerGroup = (group, time=1) => {
   }, time * 1000)
 }
 
-let setGroupColor = (group, color, args) => {
-return user.setGroupState(groups[group], colorState(color, ...args))
+//fade to a new color permanently
+let setGroupColor = (group, color) => {
+  return user.setGroupState(groups[group], colorState(color))
 }
 
-let setColor = (light, color, args) => {
-  return user.setLightState(light, colorState(color, ...args))
+let setColor = (light, color) => {
+  return user.setLightState(light, colorState(color))
 }
 
 let getColor = (light) => {
   return user.getLight(light).then(data => { return(data.state.hue) } )
 }
+
 let getGroupColor = (group) => {
-  return user.getGroup(groups[group]).then(data => { return(data.state.hue) } )
+  return user.getGroup(groups[group]).then(data => { return(data.action.hue) } )
 }
 
+let getState = (light) => {
+  return user.getLight(light).then(data => { return(data) } )
+}
+
+let getGroupState = (group) => {
+  return user.getGroup(group).then(data => { return(data) } )
+}
+
+//trigger hardcoded seance sequence
+let seance = (callback) => {
+  let colorFlag = true
+  let colorSequence = ['red', 'blue', 'green', 'orange', 'purple', 'neutralWhite']
+  let index = 0;
+  let seanceInterval = setInterval(() => {
+    setGroupColor('Seance', colors[colorSequence[index]])
+    index += 1
+    if(index >= colorSequence.length) {
+      callback()
+      clearInterval(seanceInterval)
+    }
+  }, 3000)
+}
+//Fade to a new color for the specified time, then face back to the original color
 let fadeGroup = (group, color, timeout=5) => {
-  let prevColor = getGroupColor(group)
-  setGroupColor(group, color, [5]).then( ()=> {
-    setTimeout(()=> {
-      user.setGroupState(groups[group], colorState(color, [5]))
-    }, timeout * 1000)
+  getGroupColor(group).then((prevState)=> {
+    setGroupColor(group, colorState(color)).then(()=> {
+      setTimeout(()=> {
+        setGroupColor(group, prevState)
+        console.log('callback')
+      }, timeout * 1000)
+    })
   })
 }
 
@@ -77,7 +110,11 @@ let hue = {
   setGroupColor,
   setColor,
   getColor,
-  fadeGroup
+  getGroupColor,
+  getState,
+  getGroupState,
+  fadeGroup,
+  seance
  }
 
 export default hue;
