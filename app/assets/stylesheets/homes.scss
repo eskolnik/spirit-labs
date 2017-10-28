@@ -1,3 +1,108 @@
 // Place all the styles related to the homes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.ritual-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  background: url(https://ak5.picdn.net/shutterstock/videos/20324005/thumb/7.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.ritual-form-container {
+  position: absolute;
+  margin-left: -350px;
+  margin-top: -200px;
+  top: 50%;
+  left: 50%;
+  font-size: 30px;
+  letter-spacing: 4px;
+  font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+.ritual-header {
+  font-size: 60px;
+}
+
+.energy-monitor-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  background: url(https://manekin3k0.files.wordpress.com/2015/10/gfbunker.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.energy-monitor-circle {
+  position: absolute;
+  margin-left: -150px;
+  margin-top: -150px;
+  top: 50%;
+  left: 50%;
+}
+
+.energy-monitor-header {
+  font-size: 96px;
+  letter-spacing: 4px;
+  font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0px 0px 50px rgba(255, 255, 255, 0.7);
+  text-align: center;
+  margin-top: 60px;
+}
+
+
+.circle {
+  width: 300px;
+  height: 300px;
+  border: 20px solid #f1f1f1;
+  border-radius: 100%;
+  text-align: center;
+  color: #fff;
+  background-color: #a0c884;
+  text-shadow: 0px 0px 50px rgba(119, 119, 119, 0.7);
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+}
+.circle-text {
+  font-size: 112px;
+  letter-spacing: 4px;
+  font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 700;
+  margin: 0;
+  width: 100%;
+}
+
+.example {
+   background: linear-gradient(#a0c884 34%, #426e1f 34%);
+}

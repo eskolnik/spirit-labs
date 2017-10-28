@@ -10,7 +10,7 @@ const ritualHelper = (ritual, callback) => {
       hue.seance(callback);
     default:
       // hue.setGroupColor('down', hue.colors.neutralWhite
-    )
+    
   }
 }
 
